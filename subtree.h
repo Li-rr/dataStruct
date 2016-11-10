@@ -5,14 +5,12 @@
 	> Created Time: 2016年11月09日 星期三 19时49分20秒
  ************************************************************************/
 
-#include <iostream>
-using namespace std;
 typedef char elementType;
 typedef struct lBNode
 {
 	elementType data;
 	struct lBNode * lChild, * rChild;
-}BiNode,*BiTree;
+}BiNode,*Bitree;
 
 //create Subtree
 void  createSubTree(Bitree q,int k)
