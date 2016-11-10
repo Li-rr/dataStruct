@@ -163,7 +163,7 @@ int main()
 	{
 		switch(control)
 		{
-		case 1: createBiTree2(T); break;
+		case 1: createBiTree(T); break;
 		case 2: PreOrder(T); break;
 		case 3: InOrder(T); break;
 		case 4: PostOrder(T);break;
