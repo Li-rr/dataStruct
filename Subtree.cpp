@@ -1,14 +1,10 @@
-<<<<<<< HEAD
+
 /*************************************************************************
 	> File Name: two-tree.cpp
 	> Author: ma6174
-	> Mail: ma6174@163.com 
+	> Mail: ma6174@163.com
 	> Created Time: 2016年11月03日 星期四 20时08分06秒
  ************************************************************************/
-=======
-# database
->>>>>>> origin/master
-
 #include<iostream>
 using namespace std;
 typedef char elementType;
@@ -85,7 +81,7 @@ void PreOrder(Bitree T)
 {
 	if(T)
 	{
-		Visit(T); 
+		Visit(T);
 		PreOrder(T->lChild);
 		PreOrder(T->rChild);
 	}
@@ -131,10 +127,10 @@ int BiTreeDepth(Bitree T)
 //
 //get subTree leaf number
 void BiTreeLeaf(Bitree T,int &num)
-{	
+{
 
 	if(!T)
-		return;	
+		return;
 
 		BiTreeLeaf(T->lChild,num);
 
@@ -142,7 +138,7 @@ void BiTreeLeaf(Bitree T,int &num)
 		if(!T->lChild&&!T->rChild)
 		{
 				num++;
-		}				
+		}
 }
 
 void print()
