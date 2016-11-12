@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 /*************************************************************************
 	> File Name: two-tree.cpp
 	> Author: ma6174
 	> Mail: ma6174@163.com 
 	> Created Time: 2016年11月03日 星期四 20时08分06秒
  ************************************************************************/
+=======
+# database
+>>>>>>> origin/master
 
 #include<iostream>
 using namespace std;
@@ -163,7 +167,11 @@ int main()
 	{
 		switch(control)
 		{
+<<<<<<< HEAD
 		case 1: createBiTree(T); break;
+=======
+		case 1: createBiTree2(T); break;
+>>>>>>> origin/master
 		case 2: PreOrder(T); break;
 		case 3: InOrder(T); break;
 		case 4: PostOrder(T);break;
