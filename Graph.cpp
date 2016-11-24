@@ -9,6 +9,7 @@
 using namespace std;
 #define INF 65535   //定义无穷大
 #define MaxVerNum 1000 //定义最大顶点个数，可自行更改
+typedef int InfoType;
 int visited[MaxVerNum] ={0};//标志顶点是否被访问
 typedef char ElementType; //定义图中顶点的数据类型
 typedef int cellType; //定义邻接矩阵中数据元素的类型
@@ -19,6 +20,54 @@ typedef struct GraphAdjMatrix
 	int VerNum;
 	int ArcNum;
 }Graph;
+//////////////////////////
+//定义邻接表类型
+//边的节点结构
+typedef struct ANode
+{
+       int adjvex; //该边的终点位置
+       struct Anode * nextarc;  //指向下一条边的指针
+        InfoType info; //该边的相关信息,这里用于存放权值
+} ArcNode;
+typedef int Vertex;
+//邻接表头节点定义
+typedef struct Vnode
+{
+    Vertex data;        //顶点信息
+    ArcNode * firstarc; //指向第一条边
+}VNode;
+typedef VNode AdjList[MaxVerNum];//adjList 是邻接表类型
+typedef struct
+{
+    AdjList adjlist;
+    int n,e;//图中的顶点数n和边数e
+}ALGraph;
+/////////////////////////////////
+void MatToList(Graph g,ALGraph * &G)
+{
+    int i,j;
+    ArcNode *p;
+    G = new ALGraph;
+    for(i=0;i<g.VerNum;i++)
+        G->adjlist[i].firstarc=NULL;
+    for(i=0;i<g.VerNum;i++)
+    {
+        for(j=g.VerNum-1;j>=0;j--)
+        {
+            if(g.AdjMatrix[i][j])
+            {
+                p=new ArcNode;
+                p->adjvex=j;
+                //bug
+                p->nextarc=G->adjlist[i].firstarc;
+                G->adjlist[i].firstarc=p;
+            }
+            G->n=g.VerNum;
+            G->e=g.ArcNum;
+        }
+    }
+}
+
 //初始化
 void initial(Graph &Gph)
 {
@@ -86,7 +135,6 @@ void DFS(Graph  &Gph,int verID)
          // cout<<"w-->"<<w<<endl;
         if(Gph.AdjMatrix[verID-1][w]==1&&!visited[w])
         {
-            floor+=1;
             DFS(Gph,w+1);
         }
 
