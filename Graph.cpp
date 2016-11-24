@@ -75,39 +75,48 @@ void Create(Graph &Gph)
     }
 	cout<<"<--crate success-->\n";
 }
-void Display(Graph P)
+
+
+int floor=0;
+void DFS(Graph  &Gph,int verID)
 {
-    int i,j;
-    cout<<"   ";
-    for(i=0;i<P.VerNum;i++)
+    cout<<Gph.Data[verID-1]<<"\t";//相当于visit（G，verID）
+   // cout<<"\nprint success\n";
+    visited[verID-1]=1;
+    for(int w=0;w<Gph.VerNum;w++)
     {
-        cout<<P.Data[i]<<"   ";
+         // cout<<"w-->"<<w<<endl;
+        if(Gph.AdjMatrix[verID-1][w]==1&&!visited[w])
+        {
+            floor+=1;
+            DFS(Gph,w+1);
+        }
+
     }
-    cout<<endl<<endl;
-    for(i=0;i<P.VerNum;i++)
-        cout<<P.Data[i]<<endl<<endl;;
-    for(i=0;;i++)
-    {
-        for(j=0;P.AdjMatrix[i][j];j++)
-    }
+   // cout<<"this is dfs\n";
 }
-void DFS(Graph  Gph,int v)
+//连通分量
+int numOfCC(Graph G)
 {
-    visited[v]=1;
-    cout<<Gph.Data[v]<<endl;
-    for(int j=v+1;Gph.AdjMatrix[v][j]!=0;j++)
+    int i,k=0;
+    for(i=0;i<G.VerNum;i++)
+        visited[i]=0;
+    for(i=0;i<G.VerNum;i++)
+        if(!visited[i])
     {
-        if(Gph.AdjMatrix[v][j])
-            DFS(Gph,j);
+        k++;
+        DFS(G,i);
+        return k;
     }
-    v++;
 }
 int main()
 {
     Graph P;
     initial(P);
     Create(P);
-    Display(P);
-    //DFS(P,0);
+
+    DFS(P,1);
+
+    cout<<numOfCC(P);
     return 0;
 }
