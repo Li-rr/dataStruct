@@ -76,8 +76,6 @@ void Create(Graph &Gph)
 	cout<<"<--crate success-->\n";
 }
 
-
-int floor=0;
 void DFS(Graph  &Gph,int verID)
 {
     cout<<Gph.Data[verID-1]<<"\t";//相当于visit（G，verID）
@@ -109,6 +107,7 @@ int numOfCC(Graph G)
         return k;
     }
 }
+
 int main()
 {
     Graph P;
