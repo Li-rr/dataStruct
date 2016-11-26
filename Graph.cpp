@@ -1,5 +1,6 @@
 #include <iostream>
  using namespace std;
+ #include "linkQueue.h"
  #define INF 65535   //定义无穷大
  #define MaxVerNum 100 //定义最大顶点个数，可自行更改
  int visited[MaxVerNum] ={0};//标志顶点是否被访问
@@ -106,16 +107,71 @@
 	}
 		return k;
  }
+ void BFS(Graph &G,int verID,int &Arcnum)
+ {
+    // cout<<"this is BFS\n";
+     int u;
+     linkQueue Q; //定义一个链队列
 
+     initQueue(Q); //初始化
+
+     cout<<G.Data[verID-1]<<"\n\n"; //访问编号为verID的顶点
+     visited[verID-1]=1;  //标记已经访问
+     enterQueue(Q,verID); //编号为verID的入队
+     ////////////////////////
+     while(!queueEmpty(Q))   //队列不为空时，处理顶点
+     {
+        outQueue(Q,u);  //取队头元素到顶点u，即顶点编号为u
+        for(int w=0;w<G.VerNum;w++)
+        {
+            if(G.AdjMatrix[u-1][w]==1)
+            {
+                Arcnum++;
+            }
+            if(G.AdjMatrix[u-1][w]>=1&&G.AdjMatrix[u-1][w]<INF&&!visited[w])
+            {
+                //cout<<u-1<<"-->"<<w<<endl;
+                cout<<G.Data[w]<<"\n";//访问编号为w+1的顶点
+                visited[w]=1; //标记w+1已访问
+              //  cout<<"w+1-->"<<w+1<<endl<<endl;
+                enterQueue(Q,w+1); //编号w+1的
+
+            }
+        }
+      //  cout<<"u-->"<<u<<endl;
+     }
+  //   cout<<"BFS is over\n";
+ }
+ ///////////////////////////////
+ //返回值为连通分量数
+int BFSTraverse(Graph &G,int verID,int &Arcnum)
+{
+      int vID;
+      int conNum=0; //连通分量数
+      for(vID=0;vID<G.VerNum;vID++)
+        visited[vID]=0;
+      BFS(G,verID,Arcnum);//从指定的顶点verID开始，遍历第一个连通分量
+      conNum++;
+      for(vID=1;vID<=G.VerNum;vID++)
+      {
+          if(!visited[vID-1])
+          {
+              BFS(G,vID,Arcnum);
+              conNum++;
+          }
+      }
+    return conNum;
+}
 int main()
 {
     Graph P;
     int num=0;
     initial(P);
     Create(P);
+    BFSTraverse(P,1,num);
 
-    numOfCC(P,num);
-    cout<<endl;
+   // numOfCC(P,num);
+    //cout<<endl;
     cout<<"Arcnum-->"<<num<<endl;
 
     return 0;
