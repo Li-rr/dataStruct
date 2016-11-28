@@ -11,19 +11,11 @@ typedef int ElemType;
 int seq_search(seqList L,ElemType key)
 {
     int i = L.listLen-1;
-    int flag=0;
     while( L.data[i] != key )
-        i--;
-
-    if(L.data[i]==key)
-    {
-        flag=1;
-    }
-    if(!flag)
-    {
-        i=-1;
-    }
-    cout<<flag<<endl;
+       { i--;
+		if(i==-1)
+		  break;
+	   }
     return i;
 
 }
