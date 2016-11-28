@@ -1,4 +1,4 @@
-
+//typedef int ElemType;
 struct  slNode
 {
 	ElemType data;
@@ -10,7 +10,7 @@ void initialList(linkList &L)
 {
 	L = new node;
 	L->next = NULL;
-	cout << "sucess\n";
+	cout << "<--initial sucess-->\n";
 }
 //O(1)
 int listLength(linkList L)
@@ -115,6 +115,8 @@ void createListR(linkList &L)
 		R = u;
 		cin >> x;
 	}
+	/////////////////////
+	cout<<"\n<--create success-->\n";
 }
 
 void createListH(linkList &L)
@@ -133,4 +135,15 @@ void createListH(linkList &L)
 		L->next = u;
 		cin >> x;
 	}
+}
+void printLinklist(linkList L)
+{
+	linkList p =L -> next;
+	while(p)
+	{
+		cout<<p->data<<endl;
+		p = p -> next;
+	}
+
+
 }
