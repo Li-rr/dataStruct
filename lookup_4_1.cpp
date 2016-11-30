@@ -3,6 +3,7 @@ using namespace std;
 typedef int ElemType;
 #include "slnode.h"
 #include "sequence_table.h"
+#include "BsTree.h"
 /*
  *简单顺序查找
  *若找到返回该元素的下标
@@ -53,15 +54,27 @@ void bin_search(seqList &L,ElemType x)
 }
 int main()
 {
-	seqList Q;
-	int x;
-	initialSeqList(Q);
-	createSeqList(Q);
-	printSeqList(Q);
-	bin_search(Q,4);
-	printSeqList(Q);
+//	seqList Q;
+//	int x;
+//	initialSeqList(Q);
+//	createSeqList(Q);
+//	printSeqList(Q);
+//	bin_search(Q,4);
+//	printSeqList(Q);
 	//x=seq_search(Q,2);
 	//cout<<"x-->"<<x<<endl;
 //	cout<<"find result: "<<seq_search(Q,2)<<endl;
+	////////////////////////////////////
+	int a[10]={12,2,33,54,65,76,87,98,5,810};
+	BSTree T = NULL;
+	for(int i=0;i<10;i++)
+	  BST_insert(T,a[i]);
+	cout<<"中序遍历二叉树\n";
+	BST_order(T);
+	cout<<endl;
+	BST_delete(T,65);
+	BST_delete(T,12);
+	BST_order(T);
+	cout<<endl;
 	return 0;
 }

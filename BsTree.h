@@ -83,3 +83,74 @@ void BST_order(BSTree T)
 	cout<<T->key<<" ";
 	BST_order(T->rchild);
 }
+int Delete(BSTree T)
+{
+	//从二叉排序数中删除节点T,并重新链接它的左右子树
+	BSTree q,s;
+	if( !T -> lchild && !T -> rchild)
+		T=NULL;
+	else if(!T->lchild) //左子树为空
+	{
+		q = T;
+		T = T -> rchild;
+		delete q;
+	}else if(!T -> rchild)
+	{
+		q = T;
+		T = T -> lchild;
+		delete q;
+	}
+	else      //左右子数均不为空
+	{
+		q = T;
+		s = T -> lchild;
+
+		while(s->rchild)
+		{
+			q = s;
+			s = s->rchild; 
+		}
+
+		T -> key = s -> key;
+		if(T != q)
+		  q -> rchild = s->lchild;
+		else
+		  q->lchild = s->lchild;
+		delete s;
+	}
+	return 1;
+}
+int BST_delete(BSTree T,int key)
+{
+	if(!T)
+	{
+		return 0;
+	}
+	else
+	{
+		if(key == T->key)
+			Delete(T);
+		else if( key < T->key)
+		  BST_delete(T->lchild,key);
+		else
+		  BST_delete(T->rchild,key);
+	}
+
+}
+
+void BST_create(BSTree &T)
+{
+	T=NULL;
+	KeyType data;
+	cout<<"<--enter data,end with 0-->\n";
+	cin>>data;
+	while(data)
+	{
+	BST_insert(T,data);
+	cin>>data;
+	}
+}
+
+
+
+
