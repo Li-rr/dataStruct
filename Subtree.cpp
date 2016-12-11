@@ -137,6 +137,7 @@ void BiTreeLeaf(Bitree T,int &num)
 		BiTreeLeaf(T->rChild,num);
 		if(!T->lChild&&!T->rChild)
 		{
+                cout<<T->data<<" ";
 				num++;
 		}
 }
