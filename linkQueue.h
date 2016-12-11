@@ -1,4 +1,4 @@
-//typedef int ElemType;
+typedef int ElemType;
 typedef struct LNode
 {
 	ElemType data;
