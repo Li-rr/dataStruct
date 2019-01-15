@@ -13,6 +13,49 @@
  	int VerNum;
  	int ArcNum;
  }Graph;
+
+ typedef struct {
+	int *data;
+	int top, stackSize;
+}Stack;
+
+
+
+void initStack(Stack & S)
+{
+		S.data = new int[MaxVerNum];
+	
+		if (!S.data)
+			return;
+	
+		S.top = 0;
+		S.stackSize = MaxVerNum;
+}
+
+void push(Stack & S, int i)
+{
+		if (S.top >= S.stackSize) {
+			cout << "栈满\n";
+			return;
+		}
+		S.data[S.top++] = i;
+}
+
+void pop(Stack & S, int & i)
+{
+		if (!S.top)
+			return;
+	
+		i = S.data[--S.top];
+}
+
+int stackEmpty(Stack S)
+{
+		if (!S.top)
+			return 1;
+		return 0;
+}
+
  //////////////////////////
  //初始化
  void initial(Graph &Gph)
@@ -162,6 +205,60 @@ int BFSTraverse(Graph &G,int verID,int &Arcnum)
       }
     return conNum;
 }
+
+//获取入度
+void GetInDegree(Graph & gph, int indegree[])
+{
+	int i, j;
+	for (i = 0; i < MaxVerNum; i++)
+		indegree[i] = 0;
+	for (i = 0; i < gph.VerNum; i++) {
+		for (j = 0; j < gph.VerNum; j++) {
+			if (gph.AdjMatrix[i][j]) {
+				indegree[j]++;
+			}
+		}
+	}
+}
+
+void topuLogicalSort(Graph G,int &flag,int tuopu[])
+{
+	Stack S;
+	flag = 0;
+	int i, j, count = 0;
+	int indegree[MaxVerNum];
+
+	GetInDegree(G, indegree);
+	initStack(S);
+	
+	for (i = 0; i < G.VerNum; i++) {
+		if (!indegree[i]) {
+			push(S, i);	//把入度为0的节点压栈
+		}
+	}
+
+	//cout << "拓扑序列如下：\n";
+	while (!stackEmpty(S)) {
+		
+		pop(S, i);
+
+		//cout << G.wire_data[i]<<" ";
+		tuopu[count] = G.wire_data[i];
+		count++;
+
+		for (j = 0; j < G.VerNum; j++) {
+			if (G.AdjMatrix[i][j]) {
+				if (!(--indegree[j]))	//删除对应的边
+					push(S, j);
+			}
+		}
+	}
+	if (count < G.VerNum) {
+		flag = 1;
+		cout << "\n此图有环存在\n";
+	}
+}
+
 int main()
 {
     Graph P;
