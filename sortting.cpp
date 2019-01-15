@@ -20,6 +20,21 @@ void insertSort(seqList &Q)
 		Q.data[j+1]=temp;
 	}
 }
+//直接插入排序，从大到小
+void insertSort2(seqList &Q){
+	int i,j;
+	int temp;
+
+	for(i=1; i < Q.listLen; i++){
+		for(j=i; j>0; j--){
+			if(Q.data[j] > Q.data[j-1]){
+				temp = Q.data[j-1];
+				Q.data[j-1] = Q.data[j];
+				Q.data[j] = temp;
+			}
+		}
+	}
+}
 /*
  *快速排序
  */
